@@ -26,10 +26,11 @@ text-shadow:0 0 10px cyan;
 }
 
 .fish-area{
-height:320px;
+height:380px;
 display:flex;
 align-items:center;
 justify-content:center;
+padding-top:60px;
 }
 
 #fish3d{
@@ -85,7 +86,7 @@ background:#00dfff;
 display:flex;
 justify-content:center;
 gap:8px;
-margin-top:40px;
+margin-top:80px;
 }
 
 .menu button{
