@@ -13,15 +13,18 @@ document.getElementById("fish3d").appendChild(fish);
 
 
 // امتیاز
-let points = 0;
+let points = localStorage.getItem("plekko_points") || 0;
 const pointsText = document.getElementById("points");
+
+pointsText.innerText = points;
 
 
 // دکمه TAP
 document.querySelector(".tap").onclick = () => {
   points += 1;
-  pointsText.innerText = points;
-};
+pointsText.innerText = points;
+
+localStorage.setItem("plekko_points", points);
 
 
 // منوها
