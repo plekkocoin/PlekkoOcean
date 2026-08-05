@@ -33,8 +33,9 @@ justify-content:center;
 padding-top:60px;
 }
 
-#fish3d{
+#fish{
 width:280px;
+height:auto;
 filter:drop-shadow(0 0 18px cyan);
 }
 
