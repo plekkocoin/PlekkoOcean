@@ -1,63 +1,102 @@
-const fish = document.getElementById("fish");
-
 let points = Number(localStorage.getItem("plekko_points")) || 0;
+let energy = Number(localStorage.getItem("plekko_energy")) || 100;
 
 const pointsText = document.getElementById("points");
+const fish = document.getElementById("fish");
+const fill = document.querySelector(".fill");
 
 pointsText.innerText = points;
 
+function updateEnergy(){
+  fill.style.width = energy + "%";
+  localStorage.setItem("plekko_energy", energy);
+}
 
-// امتیاز با زدن روی ماهی
-fish.onclick = () => {
+updateEnergy();
+
+function addPoint(){
+
+  if(energy <= 0){
+    alert("⚡ Energy empty!");
+    return;
+  }
 
   points += 1;
+  energy -= 1;
 
   pointsText.innerText = points;
 
   localStorage.setItem("plekko_points", points);
 
+  updateEnergy();
+
+
   fish.style.transform = "scale(1.1)";
 
-  setTimeout(() => {
+  setTimeout(()=>{
     fish.style.transform = "scale(1)";
   },150);
 
 
-  // حباب
   const bubble = document.createElement("div");
-  bubble.innerHTML = "🫧";
-  bubble.style.position = "absolute";
-  bubble.style.fontSize = "35px";
-  bubble.style.left = "50%";
-  bubble.style.top = "45%";
+  bubble.innerHTML="🫧";
+  bubble.style.position="absolute";
+  bubble.style.left="50%";
+  bubble.style.top="45%";
+  bubble.style.fontSize="35px";
 
   document.body.appendChild(bubble);
 
-  setTimeout(() => {
+  setTimeout(()=>{
     bubble.remove();
-  },1000);
+  },800);
+}
 
-};
+
+// ضربه روی ماهی
+fish.onclick = addPoint;
 
 
-// دکمه TAP هم فعال بماند
-document.querySelector(".tap").onclick = () => {
+// دکمه TAP
+document.querySelector(".tap").onclick = addPoint;
 
-  points += 1;
 
-  pointsText.innerText = points;
+// شارژ انرژی
+setInterval(()=>{
 
-  localStorage.setItem("plekko_points", points);
+ if(energy < 100){
+   energy += 1;
+   updateEnergy();
+ }
 
-};
+},1000);
 
 
 // منوها
 
-const buttons = document.querySelectorAll(".menu button");
+const buttons=document.querySelectorAll(".menu button");
 
-buttons[0].onclick = () => alert("🎯 Tasks: Coming soon");
-buttons[1].onclick = () => alert("👥 Invite: Coming soon");
-buttons[2].onclick = () => alert("🏆 Rank: Coming soon");
-buttons[3].onclick = () => alert("🎁 Gift: Coming soon");
-buttons[4].onclick = () => alert("🌊 Ocean: Coming soon");
+
+buttons[0].onclick=()=>{
+ alert("🎯 Tasks\nClean ocean missions coming soon!");
+};
+
+
+buttons[1].onclick=()=>{
+ alert("👥 Invite\nShare Plekko with friends!");
+};
+
+
+buttons[2].onclick=()=>{
+ alert("🏆 Rank\nYour points: "+points);
+};
+
+
+buttons[3].onclick=()=>{
+ alert("🎁 Daily Gift coming soon!");
+};
+
+
+buttons[4].onclick=()=>{
+ alert("🌊 Ocean status\nKeep cleaning the ocean!");
+};
