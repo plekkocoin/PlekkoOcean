@@ -1,5 +1,6 @@
 let points = Number(localStorage.getItem("plekko_points")) || 0;
 let energy = Number(localStorage.getItem("plekko_energy")) || 100;
+const maxEnergy = 100;
 
 const pointsText = document.getElementById("points");
 const fish = document.getElementById("fish");
@@ -19,9 +20,9 @@ function update(){
 }
 
 update();
-
+fill.style.width = energy + "%";
 function hit(){
-
+energy = Math.max(0, energy - 1);
  if(energy <= 0){
    alert("⚡ Energy is empty");
    return;
