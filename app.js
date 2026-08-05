@@ -23,6 +23,19 @@ pointsText.innerText = points;
 
 // دکمه TAP
 document.querySelector(".tap").onclick = () => {
+// کلیک روی ماهی
+document.getElementById("fish").onclick = () => {
+  points += 1;
+  pointsText.innerText = points;
+
+  localStorage.setItem("plekko_points", points);
+
+  fish.style.transform = "scale(1.1)";
+
+  setTimeout(() => {
+    fish.style.transform = "scale(1)";
+  }, 150);
+};
   points += 1;
 pointsText.innerText = points;
 
