@@ -5,98 +5,86 @@ const pointsText = document.getElementById("points");
 const fish = document.getElementById("fish");
 const fill = document.querySelector(".fill");
 
-pointsText.innerText = points;
-
-function updateEnergy(){
-  fill.style.width = energy + "%";
-  localStorage.setItem("plekko_energy", energy);
+function save(){
+ localStorage.setItem("plekko_points", points);
+ localStorage.setItem("plekko_energy", energy);
 }
 
-updateEnergy();
+function update(){
+ pointsText.innerText = points;
+ if(fill){
+   fill.style.width = energy + "%";
+ }
+ save();
+}
 
-function addPoint(){
+update();
 
-  if(energy <= 0){
-    alert("⚡ Energy empty!");
-    return;
-  }
+function hit(){
 
-  points += 1;
-  energy -= 1;
+ if(energy <= 0){
+   alert("⚡ Energy is empty");
+   return;
+ }
 
-  pointsText.innerText = points;
+ points++;
+ energy--;
 
-  localStorage.setItem("plekko_points", points);
+ update();
 
-  updateEnergy();
-
-
-  fish.style.transform = "scale(1.1)";
-
-  setTimeout(()=>{
-    fish.style.transform = "scale(1)";
-  },150);
+ fish.style.transform="scale(1.1)";
+ setTimeout(()=>{
+  fish.style.transform="scale(1)";
+ },150);
 
 
-  const bubble = document.createElement("div");
-  bubble.innerHTML="🫧";
-  bubble.style.position="absolute";
-  bubble.style.left="50%";
-  bubble.style.top="45%";
-  bubble.style.fontSize="35px";
+ let bubble=document.createElement("div");
+ bubble.innerHTML="🫧";
+ bubble.style.position="absolute";
+ bubble.style.left="50%";
+ bubble.style.top="40%";
+ bubble.style.fontSize="30px";
 
-  document.body.appendChild(bubble);
+ document.body.appendChild(bubble);
 
-  setTimeout(()=>{
-    bubble.remove();
-  },800);
+ setTimeout(()=>{
+  bubble.remove();
+ },800);
 }
 
 
-// ضربه روی ماهی
-fish.onclick = addPoint;
+fish.onclick=hit;
 
-
-// دکمه TAP
-document.querySelector(".tap").onclick = addPoint;
+document.querySelector(".tap").onclick=hit;
 
 
 // شارژ انرژی
 setInterval(()=>{
-
- if(energy < 100){
-   energy += 1;
-   updateEnergy();
+ if(energy<100){
+  energy++;
+  update();
  }
-
-},1000);
-
-
-// منوها
-
-const buttons=document.querySelectorAll(".menu button");
+},3000);
 
 
-buttons[0].onclick=()=>{
- alert("🎯 Tasks\nClean ocean missions coming soon!");
+// دکمه ها
+
+document.querySelectorAll(".menu button")[0].onclick=()=>{
+ alert("🎯 Tasks\nClean the ocean and earn points");
 };
 
-
-buttons[1].onclick=()=>{
- alert("👥 Invite\nShare Plekko with friends!");
+document.querySelectorAll(".menu button")[1].onclick=()=>{
+ alert("👥 Invite\nInvite friends and earn rewards");
 };
 
-
-buttons[2].onclick=()=>{
+document.querySelectorAll(".menu button")[2].onclick=()=>{
  alert("🏆 Rank\nYour points: "+points);
 };
 
-
-buttons[3].onclick=()=>{
- alert("🎁 Daily Gift coming soon!");
+document.querySelectorAll(".menu button")[3].onclick=()=>{
+ alert("🎁 Gift\nDaily reward coming soon");
 };
 
-
-buttons[4].onclick=()=>{
- alert("🌊 Ocean status\nKeep cleaning the ocean!");
+document.querySelectorAll(".menu button")[4].onclick=()=>{
+ alert("🌊 Ocean\nHelp clean the ocean");
 };
