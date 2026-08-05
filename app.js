@@ -9,7 +9,9 @@ fish.style.margin = "0 auto";
 fish.style.userSelect = "none";
 fish.draggable = false;
 
-document.getElementById("fish3d").appendChild(fish);
+// امتیاز
+let points = localStorage.getItem("plekko_points") || 0;
+const pointsText = document.getElementById("points");
 
 
 // امتیاز
